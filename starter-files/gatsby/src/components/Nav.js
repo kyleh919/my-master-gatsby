@@ -1,10 +1,25 @@
 import React from 'react';
-
 import { Link } from 'gatsby';
+import styled from 'styled-components';
+
+const NavStyled = styled.nav`
+  margin-bottom: 3rem;
+
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto 1fr 1fr;
+    /* 2rem * the set html:font-size in GlobalStyles.js */
+    grid-gap: 2rem;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+  }
+`;
 
 export default function Nav() {
   return (
-    <nav>
+    <NavStyled>
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -22,6 +37,6 @@ export default function Nav() {
           <Link to="/order">Order Ahead!</Link>
         </li>
       </ul>
-    </nav>
+    </NavStyled>
   );
 }
