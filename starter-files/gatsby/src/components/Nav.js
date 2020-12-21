@@ -6,6 +6,10 @@ import Logo from './Logo';
 const NavStyled = styled.nav`
   margin-bottom: 3rem;
 
+  .logo {
+    transform: translateY(-25%);
+  }
+
   ul {
     display: grid;
     grid-template-columns: 1fr 1fr auto 1fr 1fr;
