@@ -26,6 +26,7 @@ const LogoStyles = styled.div`
   .est {
     font-size: 1.5em;
     align-self: center;
+    text-align: center;
   }
   h1 {
     display: grid;
@@ -41,6 +42,7 @@ const LogoStyles = styled.div`
     font-size: 3.2em;
     letter-spacing: 0.2em;
     transform: translateY(-0.15em);
+    text-align: center;
   }
   .slicks {
     transform: scale(1.4);
