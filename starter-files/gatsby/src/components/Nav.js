@@ -20,6 +20,8 @@ const NavStyled = styled.nav`
     margin: 0;
     padding: 0;
     list-style: none;
+
+    margin-top: -6rem;
   }
 
   li {
@@ -50,6 +52,9 @@ const NavStyled = styled.nav`
     text-decoration: none;
 
     &:hover {
+      color: var(--red);
+    }
+    &[aria-current='page'] {
       color: var(--red);
     }
   }
