@@ -54,16 +54,35 @@ export default {
       topping1: 'toppings.1.name',
       topping2: 'toppings.2.name',
       topping3: 'toppings.3.name',
+      toppingType0: 'toppings.0.vegetarian',
+      toppingType1: 'toppings.1.vegetarian',
+      toppingType2: 'toppings.2.vegetarian',
+      toppingType3: 'toppings.3.vegetarian',
     },
-    prepare: ({ title, media, ...toppings }) => {
-      // 1. filter the undefined toppings out
+    prepare: ({
+      title,
+      media,
+      topping0,
+      topping1,
+      topping2,
+      topping3,
+      ...toppingTypes
+    }) => {
+      const toppings = { topping0, topping1, topping2, topping3 };
+
+      // 1. - filter the undefined toppings out
       const definedToppings = Object.values(toppings).filter(
         (topping) => topping !== undefined
       );
 
-      // 2. return the preview object for the pizza
+      // 1.5 - determine if all toppings are vegetarian
+      const vegetarian = Object.values(toppingTypes).includes(
+        false || undefined
+      );
+
+      // 2. - return the preview object for the pizza
       return {
-        title,
+        title: `${title} ${vegetarian ? `🌱` : ``}`,
         media,
         subtitle: definedToppings.join(', '),
       };
