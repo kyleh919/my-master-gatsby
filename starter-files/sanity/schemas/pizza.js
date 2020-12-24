@@ -78,7 +78,7 @@ export default {
       );
 
       // 1.5 - determine if all toppings are vegetarian
-      const vegetarian = Object.values(toppingTypes).includes(
+      const vegetarian = !Object.values(toppingTypes).includes(
         false || undefined
       );
 
