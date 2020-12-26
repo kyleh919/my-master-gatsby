@@ -78,9 +78,7 @@ export default {
       );
 
       // 1.5 - determine if all toppings are vegetarian
-      const vegetarian = !Object.values(toppingTypes).includes(
-        false || undefined
-      );
+      const vegetarian = !Object.values(toppingTypes).includes(false);
 
       // 2. - return the preview object for the pizza
       return {
