@@ -1,9 +1,7 @@
 import React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 
 function countToppingsInPizzas(pizzas) {
-  console.log('pizzas = ', pizzas);
-
   // 1. extract each pizzas list of toppings
   // 2. flatten out the nested arrays
   // 3. reduce the flattened array to count the number of topping occurences
@@ -12,8 +10,6 @@ function countToppingsInPizzas(pizzas) {
     .map((pizza) => pizza.toppings)
     .flat()
     .reduce((acc, topping) => {
-      // console.log(acc, topping);
-
       if (acc[topping.id] === undefined) {
         acc[topping.id] = {
           name: topping.name,
@@ -53,11 +49,7 @@ export default function ToppingsFilter() {
     }
   `);
 
-  console.clear();
-  console.log({ toppings, pizzas });
-
   const toppingsCount = countToppingsInPizzas(pizzas.nodes);
-  console.log(toppingsCount);
 
   // 3. Count how many pizzas are in each topping
   // 4. Loop over the list of toppings and display the topping and the count of pizzas in that topping
@@ -65,7 +57,12 @@ export default function ToppingsFilter() {
 
   return (
     <div>
-      <p>toppings</p>
+      {toppingsCount.map((topping) => (
+        <Link key={topping.id} to={`/topping/${topping.name}`}>
+          <span className="name">{topping.name}</span>
+          <span className="count">{topping.count}</span>
+        </Link>
+      ))}
     </div>
   );
 }
