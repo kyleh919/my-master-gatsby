@@ -31,7 +31,7 @@ const ToppingsStyles = styled.div`
 function countToppingsInPizzas(pizzas) {
   // 1. extract each pizzas list of toppings
   // 2. flatten out the nested arrays
-  // 3. reduce the flattened array to count the number of topping occurences
+  // 3. reduce the flattened array to count the number of topping occurrences
   // 4. sort the results from least to greatest
   const count = pizzas
     .map((pizza) => pizza.toppings)
@@ -76,12 +76,11 @@ export default function ToppingsFilter() {
     }
   `);
 
-  const toppingsCount = countToppingsInPizzas(pizzas.nodes);
-
   // 3. Count how many pizzas are in each topping
   // 4. Loop over the list of toppings and display the topping and the count of pizzas in that topping
-  // 5. Link it up.....
+  const toppingsCount = countToppingsInPizzas(pizzas.nodes);
 
+  // 5. Link it up.....
   return (
     <ToppingsStyles>
       {toppingsCount.map((topping) => (
