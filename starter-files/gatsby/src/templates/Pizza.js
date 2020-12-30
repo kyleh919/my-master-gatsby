@@ -3,9 +3,9 @@ import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 
-const SinglePizzaStyles = styled.div`
+const PizzaGridStyles = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 2rem;
 `;
 
@@ -13,7 +13,7 @@ export default function SinglePizzaPage({ data }) {
   const { pizza } = data;
 
   return (
-    <SinglePizzaStyles>
+    <PizzaGridStyles>
       <Img fluid={pizza.image.asset.fluid} />
       <div>
         <h2 className="mark">{pizza.name}</h2>
@@ -23,7 +23,7 @@ export default function SinglePizzaPage({ data }) {
           ))}
         </ul>
       </div>
-    </SinglePizzaStyles>
+    </PizzaGridStyles>
   );
 }
 
