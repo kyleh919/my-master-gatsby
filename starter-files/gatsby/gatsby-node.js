@@ -1,4 +1,5 @@
 import path from 'path';
+import fetch from 'isomorphic-fetch';
 
 async function turnPizzasIntoPages({ graphql, actions }) {
   // 1. Get a template for this page
@@ -17,11 +18,11 @@ async function turnPizzasIntoPages({ graphql, actions }) {
       }
     }
   `);
-  console.log(data);
+  // console.log(data);
 
   // 3. Loop over each pizza and create a page for that pizza
   data.pizzas.nodes.forEach((pizza) => {
-    console.log('Creating a pizza page for ', pizza.name);
+    // console.log('Creating a pizza page for ', pizza.name);
 
     actions.createPage({
       // URL of the page
@@ -51,11 +52,11 @@ async function turnToppingsIntoPages({ graphql, actions }) {
       }
     }
   `);
-  console.log(data);
+  // console.log(data);
 
   // 3. create a page for each of the toppings
   data.toppings.nodes.forEach((topping) => {
-    console.log('Creating a topping page for ', topping.name);
+    // console.log('Creating a topping page for ', topping.name);
 
     actions.createPage({
       path: `topping/${topping.name}`,
@@ -67,6 +68,44 @@ async function turnToppingsIntoPages({ graphql, actions }) {
       },
     });
   });
+}
+
+async function fetchBeersAndTurnIntoNodes({
+  actions,
+  createNodeId,
+  createContentDigest,
+}) {
+  console.log('🍻 fetching beers!');
+
+  // 1. fetch a list of beers
+  const res = await fetch('https://www.sampleapis.com/beers/api/ale');
+  const beers = await res.json();
+  console.log(beers);
+
+  // 2. loop over each
+  beers.forEach((beer) => {
+    // 3. create a node for each beer
+    const nodeMeta = {
+      id: createNodeId(`beer-${beer.name}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'Beer',
+        mediaType: 'application/json',
+        contentDigest: createContentDigest(beer),
+      },
+    };
+
+    actions.createNode({
+      ...beer,
+      ...nodeMeta,
+    });
+  });
+}
+
+export async function sourceNodes(params) {
+  // fetch a list of beers and source them into our Gatsby API!
+  await Promise.all([fetchBeersAndTurnIntoNodes(params)]);
 }
 
 export async function createPages(params) {
