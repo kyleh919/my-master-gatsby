@@ -22,7 +22,7 @@ const ToppingsStyles = styled.div`
       padding: 2px 5px;
     }
 
-    .active {
+    &[aria-current='page'] {
       background: var(--yellow);
     }
   }
