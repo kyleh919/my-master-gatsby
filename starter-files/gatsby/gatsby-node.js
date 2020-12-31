@@ -71,8 +71,13 @@ async function turnToppingsIntoPages({ graphql, actions }) {
 
 export async function createPages(params) {
   // Create pages dynamically
+
+  // wait for all promises to be resolved before finishing this function
+  await Promise.all([
+    turnPizzasIntoPages(params),
+    turnToppingsIntoPages(params),
+  ]);
   // 1. Pizzas
-  await turnPizzasIntoPages(params);
   // 2. Toppings
   // 3. Slicemasters
 }
