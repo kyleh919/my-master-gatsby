@@ -78,7 +78,7 @@ async function fetchBeersAndTurnIntoNodes({
   console.log('🍻 fetching beers!');
 
   // 1. fetch a list of beers
-  const res = await fetch('https://www.sampleapis.com/beers/api/ale');
+  const res = await fetch('https://api.sampleapis.com/beers/ale');
   const beers = await res.json();
   console.log(beers);
 
