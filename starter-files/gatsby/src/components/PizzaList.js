@@ -21,6 +21,10 @@ const PizzaStyles = styled.div`
   grid-row: span 3;
   grid-gap: 1rem;
 
+  a {
+    text-decoration: none;
+  }
+
   h2,
   p {
     margin: 0;
