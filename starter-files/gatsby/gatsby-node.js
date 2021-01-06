@@ -80,7 +80,7 @@ async function fetchBeersAndTurnIntoNodes({
   // 1. fetch a list of beers
   const res = await fetch('https://api.sampleapis.com/beers/ale');
   const beers = await res.json();
-  console.log(beers);
+  // console.log(beers);
 
   // 2. loop over each
   beers.forEach((beer) => {
@@ -103,6 +103,53 @@ async function fetchBeersAndTurnIntoNodes({
   });
 }
 
+async function turnSlicemastersIntoPages({ graphql, actions }) {
+  // 1. query all slicemasters
+  const { data } = await graphql(`
+    query {
+      slicemasters: allSanityPerson {
+        nodes {
+          name
+          id
+          slug {
+            current
+          }
+        }
+        totalCount
+      }
+    }
+  `);
+
+  // console.log(data);
+
+  // TODO 2. turn each slicemaster into their own page
+  const slicemastersTemplate = path.resolve('./src/pages/slicemasters.js');
+
+  // 3. figure out how many pages there are based on how many slicemasters
+  //    there are and how many per page
+  const totalSlicemasters = data.slicemasters.totalCount;
+  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
+  const totalPages = Math.ceil(totalSlicemasters / pageSize);
+
+  // console.log("totalPages = ", totalPages);
+
+  // 4. loop from 1 to n (number of pages you have) and create the pages
+  for (let i = 1; i <= totalPages; i++) {
+    actions.createPage({
+      path: `slicemasters/${i}`,
+      component: slicemastersTemplate,
+      context: {
+        // tells us how many people we should skip over for the current page
+        skip: (i - 1) * pageSize,
+        currentPage: i,
+        pageSize,
+      },
+    });
+  }
+  // 5. go back into slicemasters to modify query to utilize the params passed in,
+  //    allowing us to only pull four at a time in sequential order
+}
+
 export async function sourceNodes(params) {
   // fetch a list of beers and source them into our Gatsby API!
   await Promise.all([fetchBeersAndTurnIntoNodes(params)]);
@@ -115,6 +162,7 @@ export async function createPages(params) {
   await Promise.all([
     turnPizzasIntoPages(params),
     turnToppingsIntoPages(params),
+    turnSlicemastersIntoPages(params),
   ]);
   // 1. Pizzas
   // 2. Toppings
