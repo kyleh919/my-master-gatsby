@@ -170,7 +170,7 @@ async function turnSlicemastersIntoIndividualPages({ graphql, actions }) {
     }
   `);
 
-  console.log(data);
+  // console.log(data);
 
   // 3. create pages
   data.slicemasters.nodes.map((slicemaster) => {
