@@ -7,6 +7,7 @@ export default {
     title: `Slick's Slices`,
     siteUrl: `https://gatsby.pizza`,
     description: `Best pizza around!`,
+    twitter: '@slicksSlices',
   },
   plugins: [
     'gatsby-plugin-styled-components',
