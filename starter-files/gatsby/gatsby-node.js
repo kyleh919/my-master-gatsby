@@ -150,6 +150,41 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
   //    allowing us to only pull four at a time in sequential order
 }
 
+async function turnSlicemastersIntoIndividualPages({ graphql, actions }) {
+  // 1. grab template
+  const individualSlicemasterTemplate = path.resolve(
+    './src/templates/Slicemaster.js'
+  );
+
+  // 2. query data
+  const { data } = await graphql(`
+    query {
+      slicemasters: allSanityPerson {
+        nodes {
+          id
+          slug {
+            current
+          }
+        }
+      }
+    }
+  `);
+
+  console.log(data);
+
+  // 3. create pages
+  data.slicemasters.nodes.map((slicemaster) => {
+    console.log(slicemaster.id);
+    actions.createPage({
+      path: `slicemasters/${slicemaster.slug.current}`,
+      component: individualSlicemasterTemplate,
+      context: {
+        id: slicemaster.id,
+      },
+    });
+  });
+}
+
 export async function sourceNodes(params) {
   // fetch a list of beers and source them into our Gatsby API!
   await Promise.all([fetchBeersAndTurnIntoNodes(params)]);
@@ -163,6 +198,7 @@ export async function createPages(params) {
     turnPizzasIntoPages(params),
     turnToppingsIntoPages(params),
     turnSlicemastersIntoPages(params),
+    turnSlicemastersIntoIndividualPages(params),
   ]);
   // 1. Pizzas
   // 2. Toppings
