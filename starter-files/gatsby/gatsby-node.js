@@ -174,7 +174,6 @@ async function turnSlicemastersIntoIndividualPages({ graphql, actions }) {
 
   // 3. create pages
   data.slicemasters.nodes.map((slicemaster) => {
-    console.log(slicemaster.id);
     actions.createPage({
       path: `slicemasters/${slicemaster.slug.current}`,
       component: individualSlicemasterTemplate,
