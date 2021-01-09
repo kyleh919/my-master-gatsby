@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import SEO from '../components/SEO';
+import useForm from '../utils/useForm';
 
 export default function OrderPage() {
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
+  const { values, updateValue } = useForm({
+    name: '',
+    email: '',
+  });
 
   return (
     <>
@@ -16,12 +21,17 @@ export default function OrderPage() {
           <input
             type="text"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={values.name}
+            onChange={updateValue}
           />
 
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" />
+          <input
+            type="email"
+            name="email"
+            value={values.email}
+            onChange={updateValue}
+          />
         </fieldset>
 
         <fieldset>
