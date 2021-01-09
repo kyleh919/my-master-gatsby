@@ -44,8 +44,6 @@ const SlicemasterStyles = styled.div`
 export default function SlicemastersPage({ data, pageContext }) {
   const { slicemasters } = data;
 
-  console.log(slicemasters);
-
   return (
     <>
       <SEO title={`Slicemasters - Page ${pageContext.currentPage || 1}`} />
