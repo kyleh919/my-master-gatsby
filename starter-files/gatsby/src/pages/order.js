@@ -9,6 +9,7 @@ import OrderStyles from '../styles/OrderStyles';
 import MenuItemStyles from '../styles/MenuItemStyles';
 import usePizza from '../utils/usePizza';
 import PizzaOrder from '../components/PizzaOrder';
+import calculateOrderTotal from '../utils/calculateOrderTotal';
 
 export default function OrderPage({ data }) {
   const pizzas = data.pizzas.nodes;
@@ -88,6 +89,14 @@ export default function OrderPage({ data }) {
             removeFromOrder={removeFromOrder}
             pizzas={pizzas}
           />
+        </fieldset>
+        <fieldset>
+          <legend>Order Total</legend>
+          <h3>
+            Your Order Total is{' '}
+            {formatMoney(calculateOrderTotal(order, pizzas))}
+          </h3>
+          <button type="submit">Order Ahead</button>
         </fieldset>
       </OrderStyles>
     </>
