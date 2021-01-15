@@ -8,17 +8,17 @@ export default function PizzaOrder({ order, pizzas, removeFromOrder }) {
   return (
     <>
       {order.map((singleOrder, index) => {
-        console.log(singleOrder);
-        console.log(pizzas);
+        // console.log(singleOrder);
+        // console.log(pizzas);
 
         const currentPizza = pizzas.find(
           (pizza) => pizza.id === singleOrder.id
         );
 
-        console.log(currentPizza);
-        console.log(
-          formatMoney(calculatePizzaPrice(currentPizza.price, singleOrder.size))
-        );
+        // console.log(currentPizza);
+        // console.log(
+        //   formatMoney(calculatePizzaPrice(currentPizza.price, singleOrder.size))
+        // );
 
         return (
           <MenuItemStyles key={`${singleOrder.id}-${index}`}>
