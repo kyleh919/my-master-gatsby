@@ -59,8 +59,6 @@ exports.handler = async (event, context) => {
   }
 
   // send the email
-
-  // test send an email
   const info = await transporter.sendMail({
     from: "Slick's Slices <slick@example.com>",
     to: `<${body.name} <${body.email}>, orders@example.com`,
