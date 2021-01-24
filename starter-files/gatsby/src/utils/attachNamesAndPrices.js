@@ -6,10 +6,12 @@ export default function attachNamesAndPrices(order, pizzas) {
     const pizza = pizzas.find(
       (singlePizza) => singlePizza.id === singleOrder.id
     );
+
     return {
       ...singleOrder,
       name: pizza.name,
-      price: formatMoney(calculatePizzaPrice(pizza.price)),
+      thumbnail: pizza.image.asset.fluid.src,
+      price: formatMoney(calculatePizzaPrice(pizza.price, singleOrder.size)),
     };
   });
 }
